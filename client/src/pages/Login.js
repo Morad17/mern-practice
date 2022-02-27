@@ -1,22 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
 import { useState } from 'react'
 
 
-function App() {
-  const [name, setName] = useState('')
+const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  async function registerUser() {
-    document.addEventListener("mousemove", registerUser);
-    const response = await fetch('http://localhost:1337/api/register', {
+  async function loginUser(event) {
+
+    document.addEventListener("mousemove", loginUser);
+    
+    const response = await fetch('http://localhost:1337/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name,
         email,
         password,
       })
@@ -28,9 +26,8 @@ function App() {
   }
 
   return <div className="">
-    <h1>Register</h1>
-    <form onSubmit={registerUser}>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)}placeholder="Name"/>
+    <h1>Login</h1>
+    <form onSubmit={loginUser}>
       <input type="Email" value={email} onChange={(e) => setEmail(e.target.value)}placeholder="email"/>
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}placeholder="Password"/>
       <button type="submit" value="Register" >Submit</button>
@@ -38,4 +35,4 @@ function App() {
   </div>
 }
 
-export default App;
+export default Login;
