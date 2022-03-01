@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/userModel')
+const jwt = require('jsonwebtoken')
 
 dotenv.config()
 
@@ -30,21 +31,28 @@ app.post('/api/register', async (req,res)=>{
     
 })
 
+
+
 app.post('/api/login', async (req,res) => {
 
-      const user = await User.findOne({
-          email: req.body.email,
-          password: req.body.password,
-      })
+    const user = await User.findOne({
+        email: req.body.email,
+        password: req.body.password,
+    })
 
-      if (user) {
-          return res.json({ status:'ok', user: true })
-      } else {
-        return res.json({ status:'error', user: false }) 
-      }
-      
-      res.json({status: 'ok'})
-    
+    if (user) {
+    const token = jwt.sign(
+        {
+            name: user.name,
+            email: user.email,
+        },
+        'secret123'
+    )
+
+        return res.json({ status: 'ok', user: token })
+    }  else {
+        return res.json({ status: 'error', user: false })
+    }    
 })
 
 app.listen(1337, () => {

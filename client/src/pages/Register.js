@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

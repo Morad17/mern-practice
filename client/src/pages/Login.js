@@ -7,7 +7,7 @@ const Login = () => {
 
   async function loginUser(event) {
 
-    document.addEventListener("mousemove", loginUser);
+    event.preventDefault()
     
     const response = await fetch('http://localhost:1337/api/login', {
       method: 'POST',
@@ -22,7 +22,12 @@ const Login = () => {
 
     const data = await response.json()
 
-    console.log(data)
+    if(data.user) {
+      alert('Login Successfull')
+      window.location.href = '/dashboard'
+    } else{
+      alert('Check Your username and password')
+    }
   }
 
   return <div className="">
@@ -30,7 +35,7 @@ const Login = () => {
     <form onSubmit={loginUser}>
       <input type="Email" value={email} onChange={(e) => setEmail(e.target.value)}placeholder="email"/>
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}placeholder="Password"/>
-      <button type="submit" value="Register" >Submit</button>
+      <button type="submit" value="Login" >Submit</button>
     </form>
   </div>
 }
