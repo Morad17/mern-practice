@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/userModel')
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 dotenv.config()
 
